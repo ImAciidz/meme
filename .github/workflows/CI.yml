@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: windows-2019
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
     - name: Extract libs from archives
@@ -54,7 +54,7 @@ jobs:
         mv game/server/Release_csgo/server.pdb .\csgo\bin
         mv engine/Release/engine.dll .\bin
         mv engine/Release/engine.pdb .\bin
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: cstrike15_src-CI
         path: |
