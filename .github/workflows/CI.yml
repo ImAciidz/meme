@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: windows-2019
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
     - name: Extract libs from archives
@@ -46,6 +46,7 @@ jobs:
         msbuild /m /t:Build /p:Configuration=Release game/client/client_csgo.vcxproj
         msbuild /m /t:Build /p:Configuration=Release game/server/server_csgo.vcxproj
         msbuild /m /t:Build /p:Configuration=Release engine/engine.vcxproj
+        msbuild /m /t:Build /p:Configuration=Release vstdlib/vstdlib.vcxproj
     - name: Move builded DLLs into specific directories
       run: |
         mv game/client/Release_csgo/client.dll .\csgo\bin
@@ -54,7 +55,9 @@ jobs:
         mv game/server/Release_csgo/server.pdb .\csgo\bin
         mv engine/Release/engine.dll .\bin
         mv engine/Release/engine.pdb .\bin
-    - uses: actions/upload-artifact@v3
+        mv vstdlib/Release/vstdlib.dll .\bin
+        mv vstdlib/Release/vstdlib.pdb .\bin
+    - uses: actions/upload-artifact@v4
       with:
         name: cstrike15_src-CI-clean
         path: |
